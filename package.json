@@ -1,0 +1,10 @@
+{
+  "name": "new-subhash-repair-shop",
+  "version": "1.0.0",
+  "description": "New Subhash Repair Agency - Tata Leyland & Leaf Spring Repair Management System",
+  "scripts": {
+    "server": "cd server/server && npm start",
+    "client": "cd server/client && npm run dev",
+    "build": "cd server/client && npm run build"
+  }
+}
