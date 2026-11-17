@@ -12,6 +12,7 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import settingRoutes from './routes/settingRoutes.js';
 import inventoryRoutes from './routes/inventoryRoutes.js';
+import webhookRoutes from './routes/webhookRoutes.js';
 
 dotenv.config();
 
@@ -61,6 +62,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/settings', settingRoutes);
 app.use('/api/inventory', inventoryRoutes);
+app.use('/api/webhook', webhookRoutes);
 
 // 404 Route Not Found Middleware
 app.use((req, res, next) => {
