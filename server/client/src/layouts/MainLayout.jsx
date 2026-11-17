@@ -297,25 +297,26 @@ const MainLayout = () => {
         </header>
 
         {/* Scrollable Page Body */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-7 pb-24 md:pb-8">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-7 pb-32 md:pb-8">
           <Outlet />
         </main>
 
-        {/* Mobile Bottom Navigation Bar */}
-        <nav className="no-print md:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-dark-card border-t border-slate-200 dark:border-dark-border z-30 flex justify-around py-2.5 shadow-2xl">
+        {/* Mobile Bottom Navigation Bar (Optimized for iPhone safe areas & Dynamic Island) */}
+        <nav className="no-print md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-dark-card/95 backdrop-blur-md border-t border-slate-200 dark:border-dark-border z-30 flex justify-around pt-2 pb-6 px-1 shadow-2xl">
           {mobileBarItems.map((item) => {
             const active = isActive(item.path);
             return (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`flex flex-col items-center justify-center flex-1 py-1 text-xs font-bold ${active
-                    ? 'text-[#2b90d9] font-black'
+                className={`flex flex-col items-center justify-center flex-1 py-1 text-[11px] font-bold transition-all ${
+                  active
+                    ? 'text-[#2b90d9] font-black scale-105'
                     : 'text-slate-400 dark:text-dark-muted hover:text-slate-600 dark:hover:text-slate-200'
-                  }`}
+                }`}
               >
                 <span className="text-xl">{item.icon}</span>
-                <span className="mt-1 text-xs">{item.name}</span>
+                <span className="mt-0.5">{item.name}</span>
               </Link>
             );
           })}

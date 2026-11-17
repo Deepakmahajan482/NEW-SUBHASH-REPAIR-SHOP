@@ -491,33 +491,45 @@ const Home = () => {
               <div className="w-9 text-center">Action</div>
             </div>
 
-            {/* Table Rows */}
+            {/* Table Rows (Mobile App Card on Phone / Pure Table Row on Desktop) */}
             <div className="space-y-2">
               {items.map((item, index) => (
                 <div 
                   key={index}
-                  className="p-3 sm:p-2.5 bg-slate-50 dark:bg-dark-bg/60 rounded-xl border border-slate-200 dark:border-dark-border flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-stretch sm:items-center text-sm hover:border-sky-300 transition-colors"
+                  className="p-2.5 sm:p-2.5 bg-slate-50 dark:bg-dark-bg/60 rounded-xl border border-slate-200 dark:border-dark-border flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center text-sm hover:border-sky-300 transition-colors"
                 >
-                  <div className="w-9 text-center font-black text-xs text-slate-400 hidden sm:block">
+                  {/* Desktop Row Number */}
+                  <div className="w-8 text-center font-black text-xs text-slate-400 hidden sm:block flex-shrink-0">
                     {index + 1}
                   </div>
 
-                  {/* Description Input */}
-                  <div className="flex-1">
+                  {/* Description & Mobile Delete */}
+                  <div className="flex items-center gap-2 flex-1">
+                    <span className="sm:hidden px-2 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono font-bold text-xs">
+                      #{index + 1}
+                    </span>
                     <input
                       type="text"
                       value={item.itemName}
                       onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
-                      placeholder="e.g. Leaf Spring Labour Charges & Fitting"
-                      className="w-full px-3.5 py-2.5 bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-bold text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
+                      placeholder="e.g. Leaf Spring Labour & Fitting"
+                      className="w-full px-3 py-2 sm:py-2.5 bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
                     />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveRow(index)}
+                      className="sm:hidden p-2 text-slate-400 hover:text-red-500 rounded-lg flex-shrink-0"
+                      title="Delete row"
+                    >
+                      <FiTrash2 className="text-base" />
+                    </button>
                   </div>
 
                   {/* Price, Qty, Total Group */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between gap-2 sm:w-auto">
                     {/* Rate Input */}
-                    <div className="w-32 sm:w-36 relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-black text-sm">₹</span>
+                    <div className="flex-1 sm:w-32 relative">
+                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 font-black text-xs">₹</span>
                       <input
                         type="number"
                         min="0"
@@ -525,33 +537,33 @@ const Home = () => {
                         value={item.price}
                         onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                         placeholder="Rate"
-                        className="w-full pl-7 pr-2.5 py-2.5 bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-mono font-black text-sm sm:text-base text-right focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
+                        className="w-full pl-6 pr-2 py-1.5 sm:py-2 bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-mono font-bold text-sm text-right focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
                       />
                     </div>
 
                     {/* Quantity Input */}
-                    <div className="w-20 sm:w-24">
+                    <div className="w-16 sm:w-20">
                       <input
                         type="number"
                         min="1"
                         value={item.quantity}
                         onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                         placeholder="Qty"
-                        className="w-full px-2 py-2.5 text-center bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-mono font-black text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
+                        className="w-full px-1.5 py-1.5 sm:py-2 text-center bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-xl text-slate-900 dark:text-white font-mono font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2b90d9]"
                       />
                     </div>
 
                     {/* Calculated Line Total */}
-                    <div className="w-28 sm:w-32 text-right font-black text-slate-900 dark:text-white font-mono text-base pr-2 truncate">
+                    <div className="flex-1 sm:w-28 text-right font-black text-[#2b90d9] dark:text-sky-400 font-mono text-sm sm:text-base truncate pr-1">
                       ₹{(Number(item.price || 0) * Number(item.quantity || 1)).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
 
-                    {/* Delete Row Button */}
-                    <div className="w-9 text-center">
+                    {/* Desktop Delete Row Button */}
+                    <div className="w-8 text-center hidden sm:block flex-shrink-0">
                       <button
                         type="button"
                         onClick={() => handleRemoveRow(index)}
-                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors cursor-pointer"
+                        className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors cursor-pointer"
                         title="Delete this row"
                       >
                         <FiTrash2 className="text-base" />
